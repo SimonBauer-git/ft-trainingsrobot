@@ -2,13 +2,13 @@ bool direction_a1, direction_a2, direction_a3, reached_a1, reached_a2, reached_a
 int demand_a1, demand_a2, demand_a3, pos_a1, pos_a2, pos_a3;
 
 void A_1() {
-  if (analogRead(A7)== 1007 && flag_1 == false) {
+  if (analogRead(A7)>750 && flag_1 == false) {
     if (direction_a1 == false) { pos_a1--; }
     if (direction_a1 == true) { pos_a1++; }
     flag_1 = true;
-    delay(100);                                         //"debounce" delay, um zu verhindern das der encoder zu viele schritte erkennt
+    delay(40);                                         //"debounce" delay, um zu verhindern das der encoder zu viele schritte erkennt
   }
-  if (analogRead(A7) != 1007) {
+  else {
     flag_1 = false; }
 }
 //__________________________________//
