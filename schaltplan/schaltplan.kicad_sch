@@ -4520,7 +4520,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "100k"
 			(at 80.01 104.1399 0)
 			(effects
 				(font
