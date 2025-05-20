@@ -17,7 +17,7 @@ AF_DCMotor a2(2);  //motor 2 = rechter motor, untere achse des arms
 AF_DCMotor a3(1);  //motor 3 (4) = drehachse unten
 
 void setup() {
-  Serial.begin(115200);  //Seriellle schnittstelle starten
+  Serial.begin(115200);
   a1.setSpeed(255);
   a2.setSpeed(255);
   a3.setSpeed(255);
@@ -94,10 +94,13 @@ void moverobot(int demand_a1, int demand_a2, int demand_a3) {
         reached_a3 = true;
       }
     }
+    Serial.print("J1=");
     Serial.print(pos_a1);
     Serial.print(",");
+    Serial.print(" J2=");
     Serial.print(pos_a2);
     Serial.print(",");
+    Serial.print(" J3=");
     Serial.println(pos_a3);
   }
   //____________________________________________________//
