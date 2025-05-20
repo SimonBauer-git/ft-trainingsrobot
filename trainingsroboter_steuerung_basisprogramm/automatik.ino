@@ -1,8 +1,11 @@
 //dieser teil des code ist modular auswechselbar
-void programm()
-{manuell();}
+void programm() {
+  automatik();
+}
 
 void manuell() {
+  Serial.println("Manuelle Steuerung")
+  delay(500);
   a2.setSpeed(125);
   a3.setSpeed(80);
   if (Serial.available()) {
@@ -46,10 +49,13 @@ void manuell() {
       break;
   }
   if (millis() - pm > 200) {
+    Serial.print("J1=");
     Serial.print(analogRead(A7));
     Serial.print(",");
+    Serial.print(" J2=");
     Serial.print(analogRead(A8));
     Serial.print(",");
+    Serial.print(" J3=");
     Serial.println(analogRead(A9));
     pm = millis();
   }
@@ -57,34 +63,25 @@ void manuell() {
 
 
 void automatik() {
+  Serial.println("Automatik, s oder k zum beenden");
   a2.setSpeed(255);
   a3.setSpeed(255);
   bool e1 = false;
   while (e1 == false) {
 
-moverobot(500,850,300);
-delay(2000);
-moverobot(990,730,130);
-delay(2000);
+    moverobot(500, 850, 300);
+    delay(2000);
+    moverobot(990, 730, 130);
+    delay(2000);
 
     if (Serial.available()) {
       SerialVal = Serial.read();
     }
 
     if (SerialVal == 's' || SerialVal == 'k') { e1 = true; }
-    if (millis() - pm > 200) {
-      Serial.print("Automatikmodus, ");
-      Serial.print(analogRead(A7));
-      Serial.print(",");
-      Serial.print(analogRead(A8));
-      Serial.print(",");
-      Serial.println(analogRead(A9));
-      pm = millis();
-    }
   }
-  a1.run(RELEASE);
-  a2.run(RELEASE);
-  a3.run(RELEASE);
 }
-
-
+a1.run(RELEASE);
+a2.run(RELEASE);
+a3.run(RELEASE);
+}
