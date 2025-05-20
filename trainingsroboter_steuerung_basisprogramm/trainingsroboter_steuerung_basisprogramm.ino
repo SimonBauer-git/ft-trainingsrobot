@@ -102,6 +102,17 @@ void moverobot(int demand_a1, int demand_a2, int demand_a3) {
     Serial.print(",");
     Serial.print(" J3=");
     Serial.println(pos_a3);
+
+    if (Serial.available()) {
+      SerialVal = Serial.read();
+    }
+
+    if (SerialVal == 's' || SerialVal == 'k') {
+      a1.run(RELEASE);
+      a2.run(RELEASE);
+      a3.run(RELEASE);
+      manuell();
+    }
   }
   //____________________________________________________//
 
@@ -112,6 +123,64 @@ void moverobot(int demand_a1, int demand_a2, int demand_a3) {
   reached_a2 = false;
   reached_a3 = false;
 }
+//-----------------------------------------------------------------------//
+//manuelle steuerung mit wasdx bzw. ik,
+void manuell() {
+  Serial.println("Manuelle Steuerung");
+  delay(500);
+  a2.setSpeed(125);
+  a3.setSpeed(80);
+  while (true) {
+    if (Serial.available()) {
+      SerialVal = Serial.read();
+    }
 
-
-
+    switch (SerialVal) {
+      case 'w':
+        a2.run(FORWARD);
+        break;
+      case 's':
+        a1.run(RELEASE);
+        a2.run(RELEASE);
+        a3.run(RELEASE);
+        break;
+      case 'k':
+        a1.run(RELEASE);
+        a2.run(RELEASE);
+        a3.run(RELEASE);
+        break;
+      case 'x':
+        a2.run(BACKWARD);
+        break;
+      case 'a':
+        a1.run(FORWARD);
+        break;
+      case 'd':
+        a1.run(BACKWARD);
+        break;
+      case 'i':
+        a3.run(BACKWARD);
+        break;
+      case ',':
+        a3.run(FORWARD);
+        break;
+      case 'h':
+        homing();
+        break;
+      case 'p':
+        automatik();
+        break;
+    }
+    if (millis() - pm > 200) {
+      Serial.print("J1=");
+      Serial.print(analogRead(A7));
+      Serial.print(",");
+      Serial.print(" J2=");
+      Serial.print(analogRead(A8));
+      Serial.print(",");
+      Serial.print(" J3=");
+      Serial.println(analogRead(A9));
+      pm = millis();
+    }
+  }
+}
