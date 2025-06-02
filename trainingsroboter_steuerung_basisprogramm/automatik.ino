@@ -12,6 +12,7 @@ void automatik() {
 
     moverobot(500, 850, 300);
     delay(2000);
+    moverobot(990, 730, 300);
     moverobot(990, 730, 130);
     delay(2000);
   }
